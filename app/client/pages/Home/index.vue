@@ -1,12 +1,12 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-10 17:17:01
- * @LastEditTime: 2022-02-14 15:44:09
+ * @LastEditTime: 2022-02-22 03:31:11
  * @LastEditors: Klien
 -->
 <template>
 	<div>
-		<div class="test" @click="jump">Vue3------{{ title }}</div>
+		<div class="home-test" @click="jump">Vue3------{{ title }}</div>
 		<span>{{ store.state.counter }}</span>
 		<button @click="addCount">addCount</button>
 		<TestComponents />
@@ -40,11 +40,13 @@
 
 			const jump = () => router.push({ path: '/about' });
 
-			const addCount = () => store.dispatch('addCount');
+			const addCount = () => {
+				store.dispatch('addCount');
 
-			getUserInfo().then((res: any) => {
-				console.log('_getUserInfo', res);
-			});
+				getUserInfo().then((res: any) => {
+					console.log('_getUserInfo', res);
+				});
+			};
 
 			return {
 				title,
@@ -57,7 +59,7 @@
 </script>
 
 <style lang="less" scoped>
-	.test {
+	.home-test {
 		color: red;
 	}
 </style>

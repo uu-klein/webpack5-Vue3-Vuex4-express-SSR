@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 20:12:39
- * @LastEditTime: 2022-02-14 07:47:29
+ * @LastEditTime: 2022-02-22 03:21:45
  * @LastEditors: Klien
  */
 export {};
@@ -18,8 +18,8 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const TerserPlugin = require('terser-webpack-plugin');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin
 
 const entry = {
 	main: './app/client/entry/client.ts',
@@ -33,7 +33,7 @@ const plugins = [
 		chunkFilename: '[name].[contenthash:8].css',
 	}),
 
-	new BundleAnalyzerPlugin()
+	// new BundleAnalyzerPlugin()
 ];
 
 const postCssConfig = {
@@ -48,30 +48,44 @@ const postCssConfig = {
 const rules = [
 	{
 		test: /\.(le|c)ss$/,
-		use: [MiniCssExtractPlugin.loader, 'css-loader', postCssConfig, 'less-loader'],
+		use: [
+			MiniCssExtractPlugin.loader,
+			'css-loader',
+			postCssConfig,
+			'less-loader',
+		],
 	},
 ];
 
 const optimization = {
 	removeEmptyChunks: true,
 	minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+	usedExports: true,
+	runtimeChunk: 'single',
 	splitChunks: {
 		chunks: 'all',
-		minSize: 0,
+		maxInitialRequests: Infinity,
+		minSize: 20000,
+		maxSize: 35000,
 		cacheGroups: {
-			vendors: {
+			defaultVendors: {
 				test: /[\\/]node_modules[\\/]/,
 				priority: -10,
+				chunks: 'initial',
+			},
+			vue: {
+				name: 'vue',
+				chunks: 'all',
+				test: /[\\/]node_modules[\\/]vue/,
+				enforce: true,
 			},
 			commons: {
 				chunks: 'initial',
-				minChunks: 2,
 				name: 'commons',
 				maxInitialRequests: 5,
 				minSize: 0,
 			},
 			default: {
-				minChunks: 2,
 				priority: -20,
 				reuseExistingChunk: true,
 			},

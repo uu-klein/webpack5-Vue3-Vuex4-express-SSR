@@ -1,11 +1,11 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-09 21:38:42
- * @LastEditTime: 2022-02-14 06:25:18
+ * @LastEditTime: 2022-02-22 03:20:54
  * @LastEditors: Klien
 -->
 <template>
-	<div>
+	<div class="aaaa">
 		<nav>
 			<ul>
 				<li>
@@ -30,6 +30,6 @@
 	});
 </script>
 
-<style scoped>
+<style>
 	@import url('normalize.css');
 </style>

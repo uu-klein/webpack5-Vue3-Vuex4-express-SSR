@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:45:36
- * @LastEditTime: 2022-02-10 17:14:52
+ * @LastEditTime: 2022-02-22 03:45:51
  * @LastEditors: Klien
  */
 export {};
@@ -27,26 +27,40 @@ const { transformProdStats } = require('../transform.webpack.stats');
 const setupDevSsr = async () => {
 	const app = await createServer();
 
-	app.use(clientConfig.output.publicPath, express.static(path.resolve(__dirname, '../dist/client')));
+	app.use(clientConfig.output.publicPath, express.static(path.resolve(__dirname, '../../../dist/client')));
 
 	const { render } = require(path.join(serverConfig.output.path, serverManifest['main.js']));
 
-	const { head, body } = transformProdStats({
-		stats: clientStats,
-		publicPath: clientConfig.output.publicPath,
-	});
+	const { assetsByChunkName } = clientStats;
+
+	const arr: Array<[]> = [];
+
+	Object.keys(assetsByChunkName).forEach((item: any) => arr.push(...assetsByChunkName[item]));
 
 	app.use('/*', async (req: any, res: any) => {
-		const { html } = await render({
+		let length: number = Object.keys(req.cookies).length;
+
+		const _store: any = length > 0 ? req.cookies : undefined;
+
+		const { html, state } = await render({
 			url: req.originalUrl,
+			_store,
+		});
+
+		const { head, body, ssrStore } = transformProdStats({
+			stats: arr,
+			publicPath: clientConfig.output.publicPath,
+			store: state,
 		});
 
 		const completeHtml = await renderHtml({
 			appHtml: html,
 			head,
 			body,
+			ssrStore,
 		});
-		res.header('Content-Type', 'text/html; charset=utf-8').send(completeHtml);
+
+		res.send(completeHtml);
 	});
 
 	return app;
@@ -54,10 +68,12 @@ const setupDevSsr = async () => {
 
 const start = async () => {
 	const app = await setupDevSsr();
+
 	try {
-		await app.listen(3003, () => console.log(`Server running on http://localhost:3003`));
+		await app.listen(3004, () => console.log(`Server running on http://localhost:3004`));
 	} catch (err) {
 		app.log.error(err);
+
 		process.exit(1);
 	}
 };

@@ -7,10 +7,12 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build:server": "cross-env NODE_ENV=production webpack --config ./config/webpack/server/webpack.config.server.ts",
 		"build:client": "cross-env NODE_ENV=production webpack --config ./config/webpack/client/webpack.config.client.prod.ts",
-		"start": "cross-env NODE_ENV=development ts-node ./app/server/config/server.config.dev.ts"
+		"start": "cross-env NODE_ENV=development ts-node ./app/server/config/server.config.dev.ts",
+		"start:server": "ts-node ./app/server/config/server.config.prod.ts",
+		"build":"npm run build:client & npm run build:server"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "",	
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/core": "^7.17.2",

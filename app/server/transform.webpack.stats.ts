@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:53:06
- * @LastEditTime: 2022-02-14 08:58:31
+ * @LastEditTime: 2022-02-22 03:36:08
  * @LastEditors: Klien
  */
 const normalizeAssets = (assets: any) => {
@@ -15,7 +15,8 @@ const normalizeAssets = (assets: any) => {
 const bodyScript = (main: any, publicPath: any) =>
 	normalizeAssets(main)
 		.filter((path: any) => path.endsWith('.js'))
-		.map((path: any) => `<script defer="defer" type="text/javascript" src="${publicPath}${path}"></script>`);
+		.map((path: any) => `<script defer type="text/javascript" src="${publicPath}${path}"></script>`)
+		.join('\n');
 
 const bodyStore = (store: any) => `<script>window.__INITIAL_STATE__ = ${JSON.stringify(store)};</script>`;
 
@@ -41,19 +42,17 @@ const transformDevStats = (stats: any, outputFileSystem: any, store: any) => {
 	return { head, body, ssrStore };
 };
 
-const transformProdStats = ({ stats, publicPath }: any) => {
-	const {
-		assetsByChunkName: { main },
-	} = stats;
-
-	const head = normalizeAssets(main)
+const transformProdStats = ({ stats, publicPath, store }: any) => {
+	const head = normalizeAssets(stats)
 		.filter((path) => path.endsWith('.css'))
-		.map((path) => `<link rel="stylesheet" href="${publicPath}${path}">`)
+		.map((path) => `<link rel="prefetch" href="${publicPath}${path}">`)
 		.join('\n');
 
-	const body: any = bodyScript(main, publicPath);
+	const body: any = bodyScript(stats, publicPath);
 
-	return { head, body };
+	const ssrStore: any = bodyStore(store);
+
+	return { head, body, ssrStore };
 };
 
 module.exports = {

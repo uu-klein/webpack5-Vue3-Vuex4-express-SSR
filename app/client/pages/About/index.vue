@@ -1,11 +1,11 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-10 17:16:55
- * @LastEditTime: 2022-02-10 18:06:42
+ * @LastEditTime: 2022-02-22 01:28:23
  * @LastEditors: Klien
 -->
 <template>
-	<div class="test" @click="jump">Vue3------{{ title }}</div>
+	<div class="about" @click="jump">Vue3------{{ title }}</div>
 </template>
 
 <script lang="ts">
@@ -29,8 +29,8 @@
 	});
 </script>
 
-<style lang="less" scoped>
-	.test {
+<style lang="css" scoped>
+	.about {
 		color: yellow;
 	}
 </style>

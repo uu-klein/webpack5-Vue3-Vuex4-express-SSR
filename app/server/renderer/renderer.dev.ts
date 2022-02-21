@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:48:13
- * @LastEditTime: 2022-02-14 08:58:11
+ * @LastEditTime: 2022-02-21 15:36:07
  * @LastEditors: Klien
  */
 export {};
@@ -44,12 +44,14 @@ const createHotReloadingServerRenderer = (config: any) => {
 		const { entrypoints, outputPath } = jsonStats;
 
 		const {
-			main: {
-				assets: [mainChunkPath],
-			},
+			main: { assets },
 		} = entrypoints;
 
-		const { render } = require(path.resolve(outputPath, mainChunkPath.name));
+		const compare = (p: any) => (m: any, n: any) => m[p] - n[p];
+
+		assets.sort(compare("size"));
+
+		const { render } = require(path.resolve(outputPath, assets[0].name));
 
 		renderApp = render;
 

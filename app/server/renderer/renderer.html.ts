@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:48:24
- * @LastEditTime: 2022-02-14 06:24:30
+ * @LastEditTime: 2022-02-22 01:15:38
  * @LastEditors: Klien
  */
 export {};
@@ -20,14 +20,13 @@ const templatePath: any = path.join(__dirname, '../../client/template/index.ejs'
 
 let template: any;
 
-const renderHtml = async (stuff: any) => {
+const renderHtml = async (stuff:any) => {
 	if (!template) {
-		const buffer: any = await readFile(templatePath);
-		
-		template = buffer.toString();
+	  const buffer = await readFile(templatePath);
+	  template = buffer.toString();
 	}
 	return Mustache.render(template, stuff);
-};
+  };
 
 const createHtmlRenderer = (onTemplateUpdate: any) => {
 	let shouldReload: boolean = true;

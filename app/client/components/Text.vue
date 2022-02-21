@@ -1,7 +1,7 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-10 22:32:32
- * @LastEditTime: 2022-02-10 22:32:33
+ * @LastEditTime: 2022-02-22 01:28:12
  * @LastEditors: Klien
 -->
 <template>
@@ -22,7 +22,7 @@
 	});
 </script>
 
-<style lang="less" scoped>
+<style lang="css" scoped>
 	.test {
 		color: greenyellow;
 	}
