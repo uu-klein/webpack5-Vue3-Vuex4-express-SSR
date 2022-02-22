@@ -1,7 +1,7 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-09 21:38:42
- * @LastEditTime: 2022-02-22 03:20:54
+ * @LastEditTime: 2022-02-22 14:03:36
  * @LastEditors: Klien
 -->
 <template>
@@ -29,7 +29,3 @@
 		setup() {},
 	});
 </script>
-
-<style>
-	@import url('normalize.css');
-</style>

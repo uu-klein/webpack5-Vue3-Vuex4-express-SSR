@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:45:36
- * @LastEditTime: 2022-02-22 03:45:51
+ * @LastEditTime: 2022-02-22 14:33:43
  * @LastEditors: Klien
  */
 export {};
@@ -47,7 +47,7 @@ const setupDevSsr = async () => {
 			_store,
 		});
 
-		const { head, body, ssrStore } = transformProdStats({
+		const { head, body, ssrStore, headScript, normalizeCss } = transformProdStats({
 			stats: arr,
 			publicPath: clientConfig.output.publicPath,
 			store: state,
@@ -58,6 +58,8 @@ const setupDevSsr = async () => {
 			head,
 			body,
 			ssrStore,
+			headScript,
+			normalizeCss,
 		});
 
 		res.send(completeHtml);
@@ -70,7 +72,7 @@ const start = async () => {
 	const app = await setupDevSsr();
 
 	try {
-		await app.listen(3004, () => console.log(`Server running on http://localhost:3004`));
+		await app.listen(3005, () => console.log(`Server running on http://localhost:3005`));
 	} catch (err) {
 		app.log.error(err);
 

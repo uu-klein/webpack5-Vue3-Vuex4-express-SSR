@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:45:22
- * @LastEditTime: 2022-02-22 03:46:02
+ * @LastEditTime: 2022-02-22 14:33:55
  * @LastEditors: Klien
  */
 export {};
@@ -18,7 +18,7 @@ const clientConfig = require('../../../config/webpack/client/webpack.config.clie
 
 const { createDevRenderer } = require('../renderer/renderer.dev');
 
-const port = 3004;
+const port = 3005;
 
 const setupDevSsr = async () => {
 	const app = await createServer();

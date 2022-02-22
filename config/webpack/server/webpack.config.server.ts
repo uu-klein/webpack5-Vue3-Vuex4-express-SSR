@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 20:08:38
- * @LastEditTime: 2022-02-22 03:41:23
+ * @LastEditTime: 2022-02-22 14:35:03
  * @LastEditors: Klien
  */
 export {};
@@ -18,7 +18,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const TerserPlugin = require('terser-webpack-plugin');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const entry = {
 	main: './app/client/entry/server.ts',
@@ -80,7 +80,7 @@ const plugins = [
 
 	new WebpackManifestPlugin(),
 
-	new BundleAnalyzerPlugin(),
+	// new BundleAnalyzerPlugin(),
 ];
 
 const config = {

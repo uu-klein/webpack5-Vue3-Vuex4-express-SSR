@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 20:08:19
- * @LastEditTime: 2022-02-21 15:51:08
+ * @LastEditTime: 2022-02-22 13:56:03
  * @LastEditors: Klien
  */
 export {};
@@ -29,6 +29,7 @@ const {
 	client_store,
 	client_components,
 	client_router,
+	client_api,
 	app,
 	client,
 	client_template,
@@ -121,8 +122,16 @@ const plugins = [
 			NODE_ENV: JSON.stringify(process.env.NODE_ENV),
 		},
 	}),
-
 ];
+
+const externals = {
+	vue: 'Vue',
+	vuex: 'Vuex',
+	axios: 'axios',
+	QS: 'qs',
+	moment: 'moment',
+	_: 'lodash',
+};
 
 module.exports = {
 	performance,
@@ -134,6 +143,7 @@ module.exports = {
 			'@/axios': axios,
 			'@/language': language,
 			'@/client': client,
+			'@/api': client_api,
 			'@/router': client_router,
 			'@/store': client_store,
 			'@/pages': client_pages,
@@ -149,4 +159,5 @@ module.exports = {
 		rules,
 	},
 	plugins,
+	externals,
 };

@@ -58,6 +58,7 @@
       "@/language": ["app/language"],
       "@/language/*": ["app/language/*"],
       "@/client/*": ["app/client/*"],
+      "@/api": ["app/client/api"],
       "@/router": ["app/client/router"],
       "@/router/*": ["app/client/router/*"],
       "@/store": ["app/client/store"],

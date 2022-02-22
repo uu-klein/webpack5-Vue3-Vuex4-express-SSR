@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-11 14:13:16
- * @LastEditTime: 2022-02-14 15:16:58
+ * @LastEditTime: 2022-02-22 12:12:47
  * @LastEditors: Klien
  */
 export {};
@@ -20,10 +20,10 @@ module.exports = {
 	node_modules: resolveApp('node_modules'),
 
 	app: resolveApp('app'),
-	
-	axios:resolveApp('app/axios'),
-	
-	language:resolveApp('app/language'),
+
+	axios: resolveApp('app/axios'),
+
+	language: resolveApp('app/language'),
 
 	copy_from: resolveApp('robots.txt'),
 
@@ -32,6 +32,8 @@ module.exports = {
 	client: resolveApp('app/client'),
 
 	client_pages: resolveApp('app/client/pages'),
+
+	client_api: resolveApp('app/client/api'),
 
 	client_store: resolveApp('app/client/store'),
 
@@ -48,5 +50,4 @@ module.exports = {
 	server_config: resolveApp('app/server/config'),
 
 	server_renderer: resolveApp('app/server/renderer'),
-
 };

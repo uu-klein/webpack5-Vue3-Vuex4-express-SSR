@@ -1,7 +1,7 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-10 17:17:01
- * @LastEditTime: 2022-02-22 03:31:11
+ * @LastEditTime: 2022-02-22 12:07:41
  * @LastEditors: Klien
 -->
 <template>
@@ -22,7 +22,7 @@
 
 	import { useStore } from 'vuex';
 
-	import { getUserInfo } from '../../api';
+	import { getUserInfo } from '@/api';
 
 	const TestComponents = defineAsyncComponent(() => import('@/components/Text.vue'));
 
