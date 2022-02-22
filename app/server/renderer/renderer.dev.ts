@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:48:13
- * @LastEditTime: 2022-02-21 15:36:07
+ * @LastEditTime: 2022-02-22 16:09:10
  * @LastEditors: Klien
  */
 export {};
@@ -49,7 +49,7 @@ const createHotReloadingServerRenderer = (config: any) => {
 
 		const compare = (p: any) => (m: any, n: any) => m[p] - n[p];
 
-		assets.sort(compare("size"));
+		assets.sort(compare('size'));
 
 		const { render } = require(path.resolve(outputPath, assets[0].name));
 
@@ -75,13 +75,15 @@ const createDevRenderer = (onUpdate: any) => {
 	return async (stuff: any, { stats, outputFileSystem }: any) => {
 		const { html, state }: any = await renderApp(stuff);
 
-		const { head, body, ssrStore }: any = transformDevStats(stats.toJson(), outputFileSystem, state);
+		const { head, body, ssrStore, headScript, normalizeCss }: any = transformDevStats(stats.toJson(), outputFileSystem, state);
 
 		const completeHtml: any = await renderHtml({
 			appHtml: html,
 			head,
 			body,
 			ssrStore,
+			headScript,
+			normalizeCss,
 		});
 
 		return completeHtml;
