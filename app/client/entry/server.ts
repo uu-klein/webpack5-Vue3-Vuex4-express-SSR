@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:56:23
- * @LastEditTime: 2022-02-21 21:55:25
+ * @LastEditTime: 2022-07-22 11:16:55
  * @LastEditors: Klien
  */
 import { createSSRApp } from '@vue/runtime-dom';
@@ -24,7 +24,9 @@ export const render = async ({ url, state, _store }: any) => {
 	if (_store) {
 		const { vuex } = _store;
 
-		store.replaceState(JSON.parse(vuex));
+		if (vuex) {
+			store.replaceState(JSON.parse(vuex));
+		}
 	}
 
 	state = store.state;
@@ -51,7 +53,7 @@ export const render = async ({ url, state, _store }: any) => {
 	// 		})
 	// 	);
 	// } catch (error) {
-	// 	console.log(error);
+	// 	console.log(error);·
 	// }
 
 	const html = await renderToString(app);
