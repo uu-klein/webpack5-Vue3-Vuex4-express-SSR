@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 20:08:19
- * @LastEditTime: 2022-02-22 13:56:03
+ * @LastEditTime: 2022-02-25 16:20:05
  * @LastEditors: Klien
  */
 export {};
@@ -30,6 +30,7 @@ const {
 	client_components,
 	client_router,
 	client_api,
+	client_assets,
 	app,
 	client,
 	client_template,
@@ -124,15 +125,6 @@ const plugins = [
 	}),
 ];
 
-const externals = {
-	vue: 'Vue',
-	vuex: 'Vuex',
-	axios: 'axios',
-	QS: 'qs',
-	moment: 'moment',
-	_: 'lodash',
-};
-
 module.exports = {
 	performance,
 	mode,
@@ -147,6 +139,7 @@ module.exports = {
 			'@/router': client_router,
 			'@/store': client_store,
 			'@/pages': client_pages,
+			'@/assets':client_assets,
 			'@/template': client_template,
 			'@/entry': client_entry,
 			'@/components': client_components,
@@ -159,5 +152,4 @@ module.exports = {
 		rules,
 	},
 	plugins,
-	externals,
 };

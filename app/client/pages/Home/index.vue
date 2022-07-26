@@ -1,7 +1,7 @@
 <!--
  * @Author: Klien
  * @Date: 2022-02-10 17:17:01
- * @LastEditTime: 2022-02-22 12:07:41
+ * @LastEditTime: 2022-07-26 02:30:05
  * @LastEditors: Klien
 -->
 <template>
@@ -9,6 +9,8 @@
 		<div class="home-test" @click="jump">Vue3------{{ title }}</div>
 		<span>{{ store.state.counter }}</span>
 		<button @click="addCount">addCount</button>
+
+		<p>1111111111 {{ data }}</p>
 		<TestComponents />
 	</div>
 </template>
@@ -24,6 +26,8 @@
 
 	import { getUserInfo } from '@/api';
 
+	import { useQuery } from '../../composables/query';
+
 	const TestComponents = defineAsyncComponent(() => import('@/components/Text.vue'));
 
 	export default defineComponent({
@@ -36,16 +40,18 @@
 
 			const router = useRouter();
 
+			const { data } = useQuery('getUserInfo', async () => {
+				// const { data: result }: any = await getUserInfo();
+				// return result;
+				return { data: 123 };
+			});
+
 			const store: any = useStore();
 
 			const jump = () => router.push({ path: '/about' });
 
 			const addCount = () => {
 				store.dispatch('addCount');
-
-				getUserInfo().then((res: any) => {
-					console.log('_getUserInfo', res);
-				});
 			};
 
 			return {
@@ -53,6 +59,7 @@
 				jump,
 				addCount,
 				store,
+				data,
 			};
 		},
 	});

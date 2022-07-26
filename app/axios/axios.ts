@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-14 14:50:36
- * @LastEditTime: 2022-02-14 15:42:19
+ * @LastEditTime: 2022-07-26 16:11:10
  * @LastEditors: Klien
  */
 import axios from 'axios';
@@ -16,7 +16,7 @@ axios.defaults.timeout = 10000;
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:${port}` : '/';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:${port}` : `http://192.168.254.102:${port}`;
 
 axios.interceptors.request.use(
 	(config: Record<string, any>) => {

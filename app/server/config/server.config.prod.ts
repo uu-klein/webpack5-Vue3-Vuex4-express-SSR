@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:45:36
- * @LastEditTime: 2022-02-22 14:33:43
+ * @LastEditTime: 2022-07-26 15:50:51
  * @LastEditors: Klien
  */
 export {};
@@ -42,16 +42,18 @@ const setupDevSsr = async () => {
 
 		const _store: any = length > 0 ? req.cookies : undefined;
 
-		const { html, state } = await render({
+		const { html, state,store } = await render({
 			url: req.originalUrl,
 			_store,
 		});
 
-		const { head, body, ssrStore, headScript, normalizeCss } = transformProdStats({
+		const { head, body, ssrStore,headScript, normalizeCss } = transformProdStats({
 			stats: arr,
 			publicPath: clientConfig.output.publicPath,
-			store: state,
+			store: store.state,
 		});
+
+		const queryState = JSON.stringify(state.query);
 
 		const completeHtml = await renderHtml({
 			appHtml: html,
@@ -60,6 +62,7 @@ const setupDevSsr = async () => {
 			ssrStore,
 			headScript,
 			normalizeCss,
+			queryState,
 		});
 
 		res.send(completeHtml);
@@ -72,7 +75,7 @@ const start = async () => {
 	const app = await setupDevSsr();
 
 	try {
-		await app.listen(3005, () => console.log(`Server running on http://localhost:3005`));
+		await app.listen(3003, () => console.log(`Server running on http://localhost:3003`));
 	} catch (err) {
 		app.log.error(err);
 

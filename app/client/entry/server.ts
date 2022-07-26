@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:56:23
- * @LastEditTime: 2022-07-22 11:16:55
+ * @LastEditTime: 2022-07-26 21:07:00
  * @LastEditors: Klien
  */
 import { createSSRApp } from '@vue/runtime-dom';
@@ -16,8 +16,10 @@ import App from '@/pages/App.vue';
 
 import { store } from '@/store';
 
-export const render = async ({ url, state, _store }: any) => {
-	const app: any = createSSRApp(App);
+import { QueryClient, dehydrate, VUE_QUERY_CLIENT } from 'vue-query';
+
+export const render = async ({ url, _store }: any) => {
+	const app = createSSRApp(App);
 
 	app.provide('store', store);
 
@@ -27,36 +29,37 @@ export const render = async ({ url, state, _store }: any) => {
 		if (vuex) {
 			store.replaceState(JSON.parse(vuex));
 		}
-	}
-
-	state = store.state;
+	} 
 
 	const router = createAppRouter({ history: createMemoryHistory() });
 
 	app.use(router);
 
+	// const metaManager = createMetaManager(true);
+	// app.use(metaManager);
+	// app.use(metaPlugin);
+
+	const client = new QueryClient();
+
+	const query = {
+		toJSON() {
+			return dehydrate(client);
+		},
+	};
+
+	client.mount();
+
+	app.provide(VUE_QUERY_CLIENT, client);
+
 	await router.push(url);
 
 	await router.isReady();
 
-	// const matchedComponents = router.currentRoute.value.matched.flatMap((record: any) => Object.values(record.components));
+	const sharedContext = {};
 
-	// try {
-	// 	await Promise.all(
-	// 		matchedComponents.map((component: any) => {
-	// 			if (component.asyncData) {
-	// 				return component.asyncData({
-	// 					store,
-	// 					route: router.currentRoute.value,
-	// 				});
-	// 			}
-	// 		})
-	// 	);
-	// } catch (error) {
-	// 	console.log(error);·
-	// }
+	const html = await renderToString(app, sharedContext);
 
-	const html = await renderToString(app);
+	// await renderMetaToString(app, sharedContext);
 
-	return { html, state };
+	return { html, state: { query }, store };
 };

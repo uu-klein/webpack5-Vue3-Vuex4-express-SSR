@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-11 14:13:16
- * @LastEditTime: 2022-02-22 12:12:47
+ * @LastEditTime: 2022-02-22 15:52:05
  * @LastEditors: Klien
  */
 export {};
@@ -34,6 +34,8 @@ module.exports = {
 	client_pages: resolveApp('app/client/pages'),
 
 	client_api: resolveApp('app/client/api'),
+
+	client_assets: resolveApp('app/client/assets'),
 
 	client_store: resolveApp('app/client/store'),
 

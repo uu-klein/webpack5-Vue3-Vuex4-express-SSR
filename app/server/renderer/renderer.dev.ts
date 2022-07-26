@@ -1,7 +1,7 @@
 /*
  * @Author: Klien
  * @Date: 2022-02-09 21:48:13
- * @LastEditTime: 2022-02-22 16:09:10
+ * @LastEditTime: 2022-07-26 15:25:15
  * @LastEditors: Klien
  */
 export {};
@@ -73,9 +73,11 @@ const createDevRenderer = (onUpdate: any) => {
 	const renderHtml: any = createHtmlRenderer(onUpdate);
 
 	return async (stuff: any, { stats, outputFileSystem }: any) => {
-		const { html, state }: any = await renderApp(stuff);
+		const { html, state, store }: any = await renderApp(stuff);
 
-		const { head, body, ssrStore, headScript, normalizeCss }: any = transformDevStats(stats.toJson(), outputFileSystem, state);
+		const { head, body, ssrStore, headScript, normalizeCss }: any = transformDevStats(stats.toJson(), outputFileSystem, store.state);
+
+		const queryState = JSON.stringify(state.query);
 
 		const completeHtml: any = await renderHtml({
 			appHtml: html,
@@ -84,6 +86,7 @@ const createDevRenderer = (onUpdate: any) => {
 			ssrStore,
 			headScript,
 			normalizeCss,
+			queryState,
 		});
 
 		return completeHtml;

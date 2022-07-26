@@ -1,21 +1,27 @@
+<!--
+ * @Author: Klien
+ * @Date: 2022-07-25 21:20:29
+ * @LastEditTime: 2022-07-26 21:23:20
+ * @LastEditors: Klien
+-->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		{{{ headScript }}}
+		{{{ head }}}
 		<meta name="viewport" content="width=device-width,  initial-scale=1,shrink-to-fit=no,maximum-scale=5.0, minimum-scale=1.0" />
 		<meta name="description" content="zd.comprehensive.pc" />
 		<meta name="x5-orientation" content="portrait" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<link rel="shortcut icon" href="/favicon.png" type="image/png" />
 		<title>Vue3+Express+Ts+Webpack5</title>
-		{{{ head }}}
-		{{{ normalizeCss }}}
 	</head>
 	<body>
 		{{{ssrStore}}}
 		<div id="app">{{{ appHtml }}}</div>
-		<script></script>
+		<script type="application/json" data-query-state>
+			{{{ queryState }}}
+		  </script>
 		{{{body}}}
 	</body>
 </html>
